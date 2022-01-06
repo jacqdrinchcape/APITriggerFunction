@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static APITriggerFunction.Model.ValidationExtension;
 
 namespace APITriggerFunction.Model
 {
@@ -16,7 +17,7 @@ namespace APITriggerFunction.Model
         public string amount { get; set; }
         public int net_price { get; set; }
         public string description { get; set; }
-        public bool send_status { get; set; }
+        public string send_status { get; set; }
         public DateTime send_date { get; set; }
         public int channel_sender { get; set; }
         public string country_code { get; set; }

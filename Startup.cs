@@ -19,8 +19,6 @@ namespace APITriggerFunction
             var tempProvider = builder.Services.BuildServiceProvider();
             var config = tempProvider.GetRequiredService<IConfiguration>();
 
-            //var connectionString = "Server=tcp:az-sbr-br-sql-dev-asp-02.database.windows.net,1433;Initial Catalog=az-sbr-br-sqldb-dev-asp-02;Persist Security Info=False;User ID=ddcadmindb;Password=CkoUW533YMHvAwRi;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-
             builder.Services.AddDbContext<DataContext>(x =>
             {
                 x.UseSqlServer(config["SqlServerConnection"]

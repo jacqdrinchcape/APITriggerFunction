@@ -28,6 +28,8 @@ namespace APITriggerFunction.Functions
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
+            ResponseDetails resp = new ResponseDetails();
+
             try
             {
                 string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -37,16 +39,23 @@ namespace APITriggerFunction.Functions
 
                 if (listWorkOrderSparePart.Count <= 0)
                 {
-                    return new BadRequestObjectResult($"error WorkOrderSparePartsAPIFunc");
+                    resp.statuscode = errorcode.error;
+                    resp.error_details.Add("error WorkOrderSparePartsAPIFunc");
+                    return new BadRequestObjectResult(resp); 
                 }
-
+                else
+                {
+                    return new OkObjectResult(listWorkOrderSparePart);
+                }
             }
             catch (Exception e)
             {
                 log.LogError(e.ToString());
-                return new BadRequestResult();
+
+                resp.statuscode = errorcode.error;
+                resp.error_details.Add(e.Message != null ? e.Message.ToString() : "error");
+                return new BadRequestObjectResult(resp);
             }
-            return new OkResult();
         }
     }
 }

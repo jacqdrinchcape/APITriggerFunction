@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using System.Text;
+using static APITriggerFunction.Model.ValidationExtension;
 
 namespace APITriggerFunction.Model
 {
@@ -13,9 +16,10 @@ namespace APITriggerFunction.Model
         public string part_number { get; set; }
         public string description { get; set; }
         public string amount { get; set; }
-        public bool send_status { get; set; }
+        public string send_status { get; set; }
         public DateTime send_date { get; set; }
         public string country_code { get; set; }
         public int channel_sender { get; set; }
     }
+
 }

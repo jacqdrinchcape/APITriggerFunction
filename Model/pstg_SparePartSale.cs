@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using static APITriggerFunction.Model.ValidationExtension;
 
 namespace APITriggerFunction.Model
 {
@@ -28,9 +30,10 @@ namespace APITriggerFunction.Model
 		public string customer_telephone { get; set; }
 		public string customer_mobile { get; set; }
 		public string customer_city { get; set; }
+		[Required(ErrorMessage = "vin required")]
 		public string vin { get; set; }
 		public string sales_channel { get; set; }
-		public bool send_status { get; set; }
+		public string send_status { get; set; }
 		public DateTime send_date { get; set; }
 		public string vendor_id { get; set; }
 		public string license_plate { get; set; }

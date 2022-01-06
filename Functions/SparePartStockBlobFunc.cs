@@ -70,7 +70,7 @@ namespace APITriggerFunction.Functions
                     part_number = parts[3],
                     description = parts[4],
                     amount = parts[5],
-                    send_status = true,
+                    send_status = "1",
                     send_date = DateTime.Now,
                     country_code = parts[6],
                     channel_sender = 1,

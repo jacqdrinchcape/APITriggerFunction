@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static APITriggerFunction.Model.ValidationExtension;
 
 namespace APITriggerFunction.Model
 {
@@ -35,7 +36,7 @@ namespace APITriggerFunction.Model
         public int nv_reference { get; set; }
         public string invoice_id { get; set; }
         public string customer_name_invoice { get; set; }
-        public bool send_status { get; set; }
+        public string send_status { get; set; }
         public DateTime send_date { get; set; }
         public string fleet_id { get; set; }
         public DateTime? deliver_date { get; set; }

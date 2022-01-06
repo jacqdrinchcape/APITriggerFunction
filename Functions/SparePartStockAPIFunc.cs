@@ -1,15 +1,15 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
+using APITriggerFunction.Model;
+using APITriggerFunction.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using APITriggerFunction.Services;
-using APITriggerFunction.Model;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace APITriggerFunction.Functions
 {
@@ -23,10 +23,12 @@ namespace APITriggerFunction.Functions
 
         [FunctionName("SparePartStockAPIFunc")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
+
+            ResponseDetails resp = new ResponseDetails();
 
             try
             {
@@ -37,16 +39,24 @@ namespace APITriggerFunction.Functions
 
                 if (listSparePartStock.Count <= 0)
                 {
-                    return new BadRequestObjectResult($"error SparePartStockAPIFunc");
+                    resp.statuscode = errorcode.error;
+                    resp.error_details.Add("error SparePartStockAPIFunc");
+                    return new BadRequestObjectResult(resp);
+                }
+                else
+                {
+                    return new OkObjectResult(listSparePartStock);
                 }
 
             }
             catch (Exception e)
             {
                 log.LogError(e.ToString());
-                return new BadRequestResult();
+
+                resp.statuscode = errorcode.error;
+                resp.error_details.Add(e.Message != null ? e.Message.ToString() : "error");
+                return new BadRequestObjectResult(resp);
             }
-            return new OkResult();
         }
     }
 }
